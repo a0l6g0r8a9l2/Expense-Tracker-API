@@ -60,3 +60,19 @@ git clone https://github.com/a0l6g0r8a9l2/Expense-Tracker-API.git
 ```bash
 cd Expense-Tracker-API
 ```
+
+```bash
+docker build -t expense-tracker-api-image .
+```
+
+```bash
+docker run -d --name expense-tracker-api-app -p 80:80 expense-tracker-api-image
+```
+
+```bash
+docker ps -a
+```
+
+```bash
+docker logs {conteiner_id}
+```
