@@ -2,10 +2,21 @@ from fastapi import FastAPI, HTTPException
 from typing import List
 import re
 import json
+import ssl
+import os
+import uvicorn
 from pydantic import BaseModel
 from datetime import datetime
 
+ENV = os.getenv('ENV') or 'DEV'
+
 app = FastAPI()
+
+if ENV.upper() == 'PROD':
+    SSL_CERT_PATH = os.getenv('SSL_CERT_PATH')
+    SSL_KEY_PATH = os.getenv('SSL_KEY_PATH')
+    ssl_context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
+    ssl_context.load_cert_chain(SSL_CERT_PATH, keyfile=SSL_KEY_PATH)
 
 
 class Transaction(BaseModel):
@@ -57,3 +68,14 @@ async def get_transactions(skip: int = 0, limit: int = 10):
             transaction = ParsedTransaction(**transaction_dict)
             transactions.append(transaction)
     return transactions[skip: skip + limit]
+
+
+if __name__ == "__main__":
+    uvicorn.run(
+        "app.main:app",
+        host="0.0.0.0",
+        port=80,
+        reload=True,
+        # ssl_keyfile=SSL_KEY_PATH,
+        # ssl_certfile=SSL_CERT_PATH
+        )

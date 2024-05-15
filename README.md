@@ -66,7 +66,7 @@ docker build -t expense-tracker-api-image .
 ```
 
 ```bash
-docker run -d --name expense-tracker-api-app -p 80:80 expense-tracker-api-image
+docker run -d --env-file .env --name expense-tracker-api-app -p 80:80 expense-tracker-api-image 
 ```
 
 ```bash
