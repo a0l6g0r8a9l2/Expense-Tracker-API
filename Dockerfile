@@ -14,4 +14,4 @@ RUN pip install --no-cache-dir --upgrade -r /code/requirements.txt
 COPY ./app /code/app
 
 # 
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "80", "--env-file", ".env", "--ssl-keyfile", ${SSL_KEY_PATH}, "--ssl-certfile", ${SSL_CERT_PATH}]
+CMD python -m uvicorn app.main:app --host 0.0.0.0 --port 80 --env-file .env --ssl-keyfile ${SSL_KEY_PATH} --ssl-certfile ${SSL_CERT_PATH}
