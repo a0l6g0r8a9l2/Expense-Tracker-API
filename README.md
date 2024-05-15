@@ -62,11 +62,11 @@ cd Expense-Tracker-API
 ```
 
 ```bash
-docker build -t expense-tracker-api-image .
+docker build --build-arg SSL_KEY_PATH="" SSL_CERT_PATH="" -t expense-tracker-api-image .
 ```
 
 ```bash
-docker run -d --env-file .env --name expense-tracker-api-app -p 80:80 expense-tracker-api-image 
+docker run -d --name expense-tracker-api-app -p 80:80 expense-tracker-api-image 
 ```
 
 ```bash
